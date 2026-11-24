@@ -26,17 +26,21 @@ export function ThemeSwitcher() {
   );
 }
 
-export default function Header() {
+export default function Header({ page = "home" }: { page?: "home" | "worklog" }) {
+  const base = page === "home" ? "" : "/";
   return (
     <header className="site-header">
       <div className="container site-header-inner">
-        <a className="site-name" href="#top">
+        <a className="site-name" href={page === "home" ? "#top" : "/"}>
           {profile.name}
         </a>
         <nav className="site-nav" aria-label="Main">
-          <a href="#experience">Experience</a>
-          <a href="#work">Work</a>
-          <a href="#skills">Skills</a>
+          <a href={`${base}#experience`}>Experience</a>
+          <a href={`${base}#work`}>Work</a>
+          <a href={`${base}#skills`}>Skills</a>
+          <a href="/work/" aria-current={page === "worklog" ? "page" : undefined}>
+            Work log
+          </a>
         </nav>
         <div className="site-header-actions">
           <ThemeSwitcher />
@@ -48,4 +52,3 @@ export default function Header() {
     </header>
   );
 }
-
