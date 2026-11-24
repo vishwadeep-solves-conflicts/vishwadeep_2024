@@ -1,5 +1,4 @@
 /* ---------- Themes ---------- */
-:root,
 [data-theme="navy"] {
   --bg: #061a33;
   --surface: #0b2545;
@@ -52,6 +51,7 @@
   color-scheme: light;
 }
 
+:root,
 [data-theme="midnight"] {
   --bg: #0c0c0e;
   --surface: #17171b;

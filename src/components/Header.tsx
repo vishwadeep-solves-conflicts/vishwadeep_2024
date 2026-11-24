@@ -49,9 +49,11 @@ export default function Header({ page = "home" }: { page?: "home" | "worklog" | 
         </nav>
         <div className="site-header-actions">
           <ThemeSwitcher />
-          <a className="button button-primary button-small" href={CV} target="_blank" rel="noopener">
-            Resume
-          </a>
+          {CV && (
+            <a className="button button-primary button-small" href={CV} target="_blank" rel="noopener">
+              Resume
+            </a>
+          )}
         </div>
       </div>
     </header>
