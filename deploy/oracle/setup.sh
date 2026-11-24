@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 # One-time setup for a fresh Oracle Cloud VM (Ubuntu 22.04/24.04 or Oracle Linux 8/9).
-# Installs Caddy, git and Node.js 20, opens ports 80 and 443 in the VM's own
-# firewall, installs the Caddyfile, and runs the first deploy.
+# Installs Caddy and git, opens ports 80 and 443 in the VM's own firewall,
+# installs the Caddyfile, and runs the first deploy. Sites are built by GitHub
+# Actions, so the server needs no Node.js.
 # Also installs a systemd timer that runs update.sh every 10 minutes, so pushes to
 # any site's repo go live on their own.
 #   usage: sudo ./setup.sh   (normally run by cloud-init.sh on first boot)
 set -euo pipefail
 KIT="$(cd "$(dirname "$0")" && pwd)"
 
-# Small shapes (the 1 GB AMD micro) need swap for npm installs and Vite builds.
+# A little swap keeps the 1 GB AMD micro steady during package installs.
 if [ "$(awk '/MemTotal/ {print $2}' /proc/meminfo)" -lt 3000000 ] && ! swapon --show | grep -q /swapfile; then
   fallocate -l 2G /swapfile || dd if=/dev/zero of=/swapfile bs=1M count=2048
   chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile
@@ -23,8 +24,7 @@ if command -v apt-get >/dev/null; then
   apt-get -o DPkg::Lock::Timeout=600 install -yq debian-keyring debian-archive-keyring apt-transport-https curl gnupg git
   curl -1sLf https://dl.cloudsmith.io/public/caddy/stable/gpg.key | gpg --dearmor --yes -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
   curl -1sLf https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt > /etc/apt/sources.list.d/caddy-stable.list
-  curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
-  apt-get -o DPkg::Lock::Timeout=600 install -yq caddy nodejs
+  apt-get -o DPkg::Lock::Timeout=600 install -yq caddy
 
   # Oracle's Ubuntu images ship iptables rules that reject everything except SSH.
   for port in 80 443; do
@@ -36,8 +36,7 @@ if command -v apt-get >/dev/null; then
 elif command -v dnf >/dev/null; then
   dnf install -yq 'dnf-command(copr)' git
   dnf copr enable -yq @caddy/caddy
-  dnf module enable -yq nodejs:20 || true
-  dnf install -yq caddy nodejs
+  dnf install -yq caddy
   firewall-cmd --permanent --add-service=http --add-service=https
   firewall-cmd --reload
 else

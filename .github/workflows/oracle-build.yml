@@ -1,0 +1,43 @@
+# Builds the portfolio for the self-hosted server, where it lives under /portfolio/,
+# and pushes the result to the oracle-build branch. The server only copies that
+# branch (see deploy/oracle/deploy.sh), so it never runs npm itself.
+# Netlify keeps building main on its own, at the site root.
+name: Build for the self-hosted server
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: oracle-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build -- --base /portfolio/
+
+      - name: Push dist/ to the oracle-build branch
+        if: github.event_name != 'pull_request'
+        working-directory: dist
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "$GITHUB_SHA" > .source-rev
+          git init -q -b oracle-build
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -qm "Build $GITHUB_SHA"
+          git push -qf "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" oracle-build

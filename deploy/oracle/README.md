@@ -14,14 +14,25 @@ One Always Free VM serves everything over plain HTTP on the server's IP address:
 ## Files
 
 - `cloud-init.sh`: paste it into the VM's cloud-init box. On first boot it clones this repo to `/opt/sites-kit` and runs `setup.sh`.
-- `setup.sh`: one-time install (Caddy, git, Node 20, firewall), the first deploy, and a timer that runs `update.sh` every 10 minutes.
+- `setup.sh`: one-time install (Caddy, git, firewall), the first deploy, and a timer that runs `update.sh` every 10 minutes.
 - `update.sh`: refreshes this kit from GitHub, then runs `deploy.sh`. **This means a push to any site's repo goes live within about 10 minutes, with no SSH needed.**
-- `deploy.sh`: pulls every repo in `sites.conf`, rebuilds only the ones with new commits, and swaps them into `/srv/sites`.
+- `deploy.sh`: fetches the built branch of every site in `sites.conf` and swaps any that changed into `/srv/sites`. It never builds anything.
 - `sites.conf`: the list of sites. One line per app.
 - `Caddyfile`: the web server config.
 - `hub/index.html`: the hub page.
 
-> Until the `apps-hub` PR is merged, the portfolio is served from `main`, whose internal links point at `/` instead of `/portfolio/`. Merging fixes it on the next timer run.
+## How builds work
+
+The server is too small to build React apps quickly, so it doesn't build at all. Each repo has a GitHub Action that builds the site on every push to `main` and pushes the finished files to a branch:
+
+| Repo | Built branch | Built with |
+|---|---|---|
+| `vishwadeep_2024` | `oracle-build` | `.github/workflows/oracle-build.yml`, with `--base /portfolio/` |
+| each app | `gh-pages` | `.github/workflows/deploy.yml` (GitHub Pages serves the same branch) |
+
+The apps are built with relative paths, so one build works at `/<app>/` here and on GitHub Pages. A push goes live here within about 10 minutes, and within a minute or two on GitHub Pages.
+
+If a repo has no built branch yet, `deploy.sh` leaves whatever is live for it in place.
 
 ## 1. Create the VM
 
@@ -46,9 +57,13 @@ On a VM that already exists: `ssh ubuntu@<ip>`, then `curl -fsSL https://raw.git
 
 ## Updating
 
-Nothing to do: the timer redeploys changed sites every 10 minutes. To force it now: `sudo systemctl start sites-deploy`. To rebuild everything: `sudo FORCE=1 /opt/sites-kit/deploy/oracle/deploy.sh`.
+Nothing to do: the timer redeploys changed sites every 10 minutes. To force it now: `sudo systemctl start sites-deploy`. To republish everything: `sudo FORCE=1 /opt/sites-kit/deploy/oracle/deploy.sh`.
 
-To add an app: add a line to `sites.conf`, copy one card in `hub/index.html`, and push to `main`. It's live within 10 minutes.
+To add an app:
+
+1. Start the new repo as a copy of any app repo. It comes with the React + Vite setup, the shared theme and top bar in `src/shared/`, and the build Action.
+2. Push it to `main` once, so the Action creates its `gh-pages` branch.
+3. Here, add a line to `sites.conf` and copy one card in `hub/index.html`, then push to `main`. It's live within 10 minutes.
 
 ## Later: a domain and HTTPS
 
