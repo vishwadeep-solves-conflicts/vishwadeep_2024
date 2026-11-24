@@ -8,6 +8,13 @@
 set -euo pipefail
 KIT="$(cd "$(dirname "$0")" && pwd)"
 
+# Small shapes (the 1 GB AMD micro) need swap for npm installs and Vite builds.
+if [ "$(awk '/MemTotal/ {print $2}' /proc/meminfo)" -lt 3000000 ] && ! swapon --show | grep -q /swapfile; then
+  fallocate -l 2G /swapfile || dd if=/dev/zero of=/swapfile bs=1M count=2048
+  chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile
+  grep -q /swapfile /etc/fstab || echo '/swapfile none swap sw 0 0' >> /etc/fstab
+fi
+
 if command -v apt-get >/dev/null; then
   export DEBIAN_FRONTEND=noninteractive
   echo iptables-persistent iptables-persistent/autosave_v4 boolean true | debconf-set-selections
