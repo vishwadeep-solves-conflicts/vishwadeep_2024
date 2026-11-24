@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" data-theme="navy">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apps – Vishwadeep Kushwaha</title>
+    <meta name="description" content="Every app Vishwadeep Kushwaha has built and put online, in one place: Traffic Sandbox, Private Commit Heatmap, India City Livability Index and The Group Wants to Guess." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Apps – Vishwadeep Kushwaha" />
+    <meta property="og:description" content="Small, open-source apps that run in your browser." />
+    <meta property="og:url" content="https://vishwadeep-s.netlify.app/apps/" />
+    <meta property="og:image" content="https://vishwadeep-s.netlify.app/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Nanum+Pen+Script&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <script>
+      try {
+        var t = localStorage.getItem("vk-theme");
+        if (t === "navy" || t === "white" || t === "midnight") document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/apps.tsx"></script>
+  </body>
+</html>

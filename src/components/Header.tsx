@@ -26,7 +26,7 @@ export function ThemeSwitcher() {
   );
 }
 
-export default function Header({ page = "home" }: { page?: "home" | "worklog" }) {
+export default function Header({ page = "home" }: { page?: "home" | "worklog" | "apps" }) {
   const base = page === "home" ? "" : "/";
   return (
     <header className="site-header">
@@ -41,6 +41,9 @@ export default function Header({ page = "home" }: { page?: "home" | "worklog" })
           <a href={`${base}#skills`}>Skills</a>
           <a href="/work/" aria-current={page === "worklog" ? "page" : undefined}>
             Work log
+          </a>
+          <a href="/apps/" aria-current={page === "apps" ? "page" : undefined}>
+            Apps
           </a>
         </nav>
         <div className="site-header-actions">

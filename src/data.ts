@@ -70,6 +70,8 @@ export type Project = {
   desc: string;
   url?: string;
   code?: string;
+  /** screenshot shown on the /apps/ hub */
+  image?: string;
 };
 
 export const projects: Project[] = [
@@ -116,6 +118,7 @@ export const sideProjects: Project[] = [
     desc: "A traffic simulator in the browser. Draw roads, time signals, add flyovers or import a real OpenStreetMap area, then compare before and after.",
     url: "https://vishwadeep-solves-conflicts.github.io/traffic-sandbox/",
     code: "https://github.com/vishwadeep-solves-conflicts/traffic-sandbox",
+    image: "https://raw.githubusercontent.com/vishwadeep-solves-conflicts/traffic-sandbox/main/screenshot.png",
   },
   {
     name: "Private Commit Heatmap",
@@ -123,6 +126,7 @@ export const sideProjects: Project[] = [
     desc: "Shows work from private repos as a GitHub-style heatmap. Only dates and counts leave your repos. The graph above was made with it.",
     url: "https://vishwadeep-solves-conflicts.github.io/private-commit-heatmap/",
     code: "https://github.com/vishwadeep-solves-conflicts/private-commit-heatmap",
+    image: "https://raw.githubusercontent.com/vishwadeep-solves-conflicts/private-commit-heatmap/main/screenshot.png",
   },
   {
     name: "India City Livability Index",
@@ -130,6 +134,7 @@ export const sideProjects: Project[] = [
     desc: "20 Indian cities rated on 17 factors and ranked for four kinds of people. Change the weights and watch the ranking move.",
     url: "https://vishwadeep-solves-conflicts.github.io/india-livability-index/",
     code: "https://github.com/vishwadeep-solves-conflicts/india-livability-index",
+    image: "https://raw.githubusercontent.com/vishwadeep-solves-conflicts/india-livability-index/main/screenshot.png",
   },
   {
     name: "The Group Wants to Guess",
@@ -137,6 +142,7 @@ export const sideProjects: Project[] = [
     desc: "A living-room quiz for a TV or projector: four rounds, a scoreboard, timers and sounds, with every question editable.",
     url: "https://vishwadeep-solves-conflicts.github.io/group-wants-to-guess/",
     code: "https://github.com/vishwadeep-solves-conflicts/group-wants-to-guess",
+    image: "https://raw.githubusercontent.com/vishwadeep-solves-conflicts/group-wants-to-guess/main/screenshot.png",
   },
 ];
 
