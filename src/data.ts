@@ -109,6 +109,37 @@ export const projects: Project[] = [
   },
 ];
 
+export const sideProjects: Project[] = [
+  {
+    name: "Traffic Sandbox",
+    tag: "Simulation · Canvas · No dependencies",
+    desc: "A traffic simulator in the browser. Draw roads, time signals, add flyovers or import a real OpenStreetMap area, then compare before and after.",
+    url: "https://vishwadeep-solves-conflicts.github.io/traffic-sandbox/",
+    code: "https://github.com/vishwadeep-solves-conflicts/traffic-sandbox",
+  },
+  {
+    name: "Private Commit Heatmap",
+    tag: "Dev tool · Python · Bash · PowerShell",
+    desc: "Shows work from private repos as a GitHub-style heatmap. Only dates and counts leave your repos. The graph above was made with it.",
+    url: "https://vishwadeep-solves-conflicts.github.io/private-commit-heatmap/",
+    code: "https://github.com/vishwadeep-solves-conflicts/private-commit-heatmap",
+  },
+  {
+    name: "India City Livability Index",
+    tag: "Data · Interactive ranking",
+    desc: "20 Indian cities rated on 17 factors and ranked for four kinds of people. Change the weights and watch the ranking move.",
+    url: "https://vishwadeep-solves-conflicts.github.io/india-livability-index/",
+    code: "https://github.com/vishwadeep-solves-conflicts/india-livability-index",
+  },
+  {
+    name: "The Group Wants to Guess",
+    tag: "Party game · Vanilla JS",
+    desc: "A living-room quiz for a TV or projector: four rounds, a scoreboard, timers and sounds, with every question editable.",
+    url: "https://vishwadeep-solves-conflicts.github.io/group-wants-to-guess/",
+    code: "https://github.com/vishwadeep-solves-conflicts/group-wants-to-guess",
+  },
+];
+
 export const skills = [
   { group: "Backend", items: "Node.js, Express, NestJS, Sequelize, BullMQ, C#, REST, GraphQL" },
   { group: "Data", items: "PostgreSQL, Redis, MongoDB, Cosmos DB" },

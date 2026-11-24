@@ -37,6 +37,7 @@ export default function Header({ page = "home" }: { page?: "home" | "worklog" })
         <nav className="site-nav" aria-label="Main">
           <a href={`${base}#experience`}>Experience</a>
           <a href={`${base}#work`}>Work</a>
+          <a href={`${base}#side-projects`}>Projects</a>
           <a href={`${base}#skills`}>Skills</a>
           <a href="/work/" aria-current={page === "worklog" ? "page" : undefined}>
             Work log
