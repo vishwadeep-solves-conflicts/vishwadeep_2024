@@ -238,6 +238,7 @@ img {
   color: var(--muted);
   text-decoration: none;
   padding: 8px 0;
+  white-space: nowrap;
 }
 
 .site-nav a:hover {
@@ -952,7 +953,10 @@ img {
   .site-nav {
     order: 3;
     width: 100%;
-    overflow-x: auto;
+    flex-wrap: wrap;
+    column-gap: 14px;
+    row-gap: 0;
+    font-size: 14px;
   }
 
   .theme-switch-label {
@@ -994,4 +998,10 @@ img {
   *::after {
     transition-duration: 0.01ms !important;
   }
+}
+
+.section-lead { margin: -8px 0 24px; max-width: 60ch; }
+
+@media (min-width: 721px) {
+  #side-projects .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

@@ -1,4 +1,4 @@
-import { highlights, jobs, profile, projects, skills } from "../data";
+import { highlights, jobs, profile, projects, sideProjects, skills, type Project } from "../data";
 import { useTheme, type ThemeKey } from "../theme";
 import CV from "../resume";
 
@@ -77,35 +77,53 @@ export function Experience() {
   );
 }
 
+function ProjectGrid({ items, live }: { items: Project[]; live?: boolean }) {
+  return (
+    <div className="project-grid">
+      {items.map((p) => (
+        <article className="card project" key={p.name}>
+          <span className="mono accent project-tag">{p.tag}</span>
+          <h3>{p.name}</h3>
+          <p className="muted">{p.desc}</p>
+          {(p.url || p.code) && (
+            <div className="project-links">
+              {p.url && (
+                <a href={p.url} target="_blank" rel="noopener">
+                  {live ? "Try it" : "Visit site"} <span aria-hidden="true">→</span>
+                </a>
+              )}
+              {p.code && (
+                <a href={p.code} target="_blank" rel="noopener">
+                  View code <span aria-hidden="true">→</span>
+                </a>
+              )}
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+  );
+}
+
 export function Work() {
   return (
     <section id="work" className="container section" aria-labelledby="work-title">
       <h2 id="work-title" className="section-title">
         Selected work
       </h2>
-      <div className="project-grid">
-        {projects.map((p) => (
-          <article className="card project" key={p.name}>
-            <span className="mono accent project-tag">{p.tag}</span>
-            <h3>{p.name}</h3>
-            <p className="muted">{p.desc}</p>
-            {(p.url || p.code) && (
-              <div className="project-links">
-                {p.url && (
-                  <a href={p.url} target="_blank" rel="noopener">
-                    Visit site <span aria-hidden="true">→</span>
-                  </a>
-                )}
-                {p.code && (
-                  <a href={p.code} target="_blank" rel="noopener">
-                    View code <span aria-hidden="true">→</span>
-                  </a>
-                )}
-              </div>
-            )}
-          </article>
-        ))}
-      </div>
+      <ProjectGrid items={projects} />
+    </section>
+  );
+}
+
+export function SideProjects() {
+  return (
+    <section id="side-projects" className="container section" aria-labelledby="side-title">
+      <h2 id="side-title" className="section-title">
+        Side projects
+      </h2>
+      <p className="muted section-lead">Small things I built for fun. Each one is open source and runs in your browser.</p>
+      <ProjectGrid items={sideProjects} live />
     </section>
   );
 }
