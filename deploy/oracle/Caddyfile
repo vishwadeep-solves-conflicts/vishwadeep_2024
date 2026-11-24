@@ -1,0 +1,22 @@
+# Serves everything from /srv/sites over plain HTTP on port 80.
+# When you get a domain, replace ":80" with the domain (for example "vishwadeep.dev")
+# and Caddy will fetch and renew an HTTPS certificate on its own.
+:80 {
+	root * /srv/sites
+	encode zstd gzip
+
+	# file_server also sends /portfolio to /portfolio/ on its own
+	file_server
+
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+	header /portfolio/assets/* Cache-Control "public, max-age=31536000, immutable"
+
+	handle_errors {
+		rewrite * /index.html
+		file_server
+	}
+}
