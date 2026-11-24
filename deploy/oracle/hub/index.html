@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <script>
   // Same key as the portfolio, so a theme picked in either place carries over. Midnight is the default.
-  try { var t = localStorage.getItem("vk-theme"); if (t === "navy" || t === "white" || t === "midnight") document.documentElement.dataset.theme = t; } catch (e) {}
+  try { var t = localStorage.getItem("vk-theme-choice"); if (t === "navy" || t === "white" || t === "midnight") document.documentElement.dataset.theme = t; } catch (e) {}
 </script>
 <style>
   [data-theme="midnight"] {
@@ -244,7 +244,7 @@
     buttons.forEach(function (b) {
       b.addEventListener("click", function () {
         root.dataset.theme = b.dataset.set;
-        try { localStorage.setItem("vk-theme", b.dataset.set); } catch (e) {}
+        try { localStorage.setItem("vk-theme-choice", b.dataset.set); } catch (e) {}
         mark();
       });
     });

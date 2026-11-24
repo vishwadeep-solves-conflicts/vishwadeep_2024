@@ -8,7 +8,8 @@ export const themes: { key: ThemeKey; label: string; bg: string; accent: string 
   { key: "midnight", label: "Midnight", bg: "#0c0c0e", accent: "#bef264" },
 ];
 
-const STORAGE_KEY = "vk-theme";
+// Renamed from "vk-theme", which was saved on every visit and would pin old visitors to Navy.
+const STORAGE_KEY = "vk-theme-choice";
 
 function readStoredTheme(): ThemeKey {
   try {
@@ -25,16 +26,21 @@ type ThemeContextValue = { theme: ThemeKey; setTheme: (key: ThemeKey) => void };
 const ThemeContext = createContext<ThemeContextValue>({ theme: "midnight", setTheme: () => undefined });
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<ThemeKey>(readStoredTheme);
+  const [theme, setThemeState] = useState<ThemeKey>(readStoredTheme);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
+  }, [theme]);
+
+  // Save only a theme the visitor picks, so a change of default reaches everyone else.
+  const setTheme = (key: ThemeKey) => {
+    setThemeState(key);
     try {
-      window.localStorage.setItem(STORAGE_KEY, theme);
+      window.localStorage.setItem(STORAGE_KEY, key);
     } catch {
       // ignore storage errors
     }
-  }, [theme]);
+  };
 
   return <ThemeContext.Provider value={{ theme, setTheme }}>{children}</ThemeContext.Provider>;
 }
