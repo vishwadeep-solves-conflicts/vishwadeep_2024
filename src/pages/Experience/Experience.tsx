@@ -10,11 +10,11 @@ const data = [{
   date: "Aug 2022 - Present",
   company_name: "SLEEKSKY",
   position: "Senior Software Engineer",
-  desc: `Full-stack engineer on a US healthcare platform for at-home lab testing and health-plan programs, working across a Node.js API and four React apps.
-  Built lab-ordering integrations and webhooks, moved large eligibility uploads to async processing, and rebuilt health-plan analytics on SQL materialized views.
-  Worked on messaging compliance (TCPA send windows, opt-outs) and security fixes, upgraded the React app to Vite, and cut the React test suite from 704 s to ~185 s.
+  desc: `Full-stack engineer on a US healthcare platform for at-home lab testing and health-plan programs (Node.js/Express API, React web app, PostgreSQL).
+  Rebuilt the job scheduler on BullMQ and Redis for 150k+ members, tuned Postgres with partial indexes and materialized views, and moved large eligibility uploads to async processing.
+  Built lab-ordering integrations, fixed pen-test findings, added messaging compliance (TCPA send windows, opt-outs), and cut the React test suite from 704 s to ~185 s.
   Earlier (2022–23): backends for client products with NestJS, Azure and Keycloak.`,
-  tech:["Node.js", "React", "Vite", "TanStack", "MUI", "SQL", "Twilio", "AWS S3", "NestJS", "Azure", "Keycloak"]
+  tech:["Node.js", "Express", "PostgreSQL", "BullMQ", "Redis", "React", "Vite", "TanStack", "Jest", "Twilio", "AWS S3", "NestJS", "Azure"]
 },
 {
   date: "Dec 2020 - Aug 2022",
