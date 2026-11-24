@@ -1,6 +1,7 @@
 import CV from "../resume";
 import { profile } from "../data";
 import { themes, useTheme } from "../theme";
+import { BASE } from "../paths";
 
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
@@ -27,11 +28,11 @@ export function ThemeSwitcher() {
 }
 
 export default function Header({ page = "home" }: { page?: "home" | "worklog" | "apps" }) {
-  const base = page === "home" ? "" : "/";
+  const base = page === "home" ? "" : BASE;
   return (
     <header className="site-header">
       <div className="container site-header-inner">
-        <a className="site-name" href={page === "home" ? "#top" : "/"}>
+        <a className="site-name" href={page === "home" ? "#top" : BASE}>
           {profile.name}
         </a>
         <nav className="site-nav" aria-label="Main">
@@ -39,10 +40,10 @@ export default function Header({ page = "home" }: { page?: "home" | "worklog" | 
           <a href={`${base}#work`}>Work</a>
           <a href={`${base}#side-projects`}>Projects</a>
           <a href={`${base}#skills`}>Skills</a>
-          <a href="/work/" aria-current={page === "worklog" ? "page" : undefined}>
+          <a href={`${BASE}work/`} aria-current={page === "worklog" ? "page" : undefined}>
             Work log
           </a>
-          <a href="/apps/" aria-current={page === "apps" ? "page" : undefined}>
+          <a href={`${BASE}apps/`} aria-current={page === "apps" ? "page" : undefined}>
             Apps
           </a>
         </nav>

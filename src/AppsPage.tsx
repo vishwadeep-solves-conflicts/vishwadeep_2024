@@ -2,6 +2,7 @@ import Header from "./components/Header";
 import { Footer } from "./components/Sections";
 import { ThemeProvider } from "./theme";
 import { profile, sideProjects } from "./data";
+import { BASE } from "./paths";
 
 function AppsPage() {
   return (
@@ -58,10 +59,10 @@ function AppsPage() {
             Also here
           </h2>
           <div className="button-row">
-            <a className="button" href="/">
+            <a className="button" href={BASE}>
               Portfolio
             </a>
-            <a className="button" href="/work/">
+            <a className="button" href={`${BASE}work/`}>
               Work log
             </a>
             <a className="button" href={profile.github} target="_blank" rel="noopener">

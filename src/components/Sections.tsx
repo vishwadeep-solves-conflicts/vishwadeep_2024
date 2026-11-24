@@ -1,11 +1,12 @@
 import { highlights, jobs, profile, projects, sideProjects, skills, type Project } from "../data";
 import { useTheme, type ThemeKey } from "../theme";
 import CV from "../resume";
+import { BASE } from "../paths";
 
 const heatmapFor: Record<ThemeKey, string> = {
-  navy: "/commit-heatmap-site.svg",
-  white: "/commit-heatmap-light.svg",
-  midnight: "/commit-heatmap-dark.svg",
+  navy: `${BASE}commit-heatmap-site.svg`,
+  white: `${BASE}commit-heatmap-light.svg`,
+  midnight: `${BASE}commit-heatmap-dark.svg`,
 };
 
 export function Highlights() {
@@ -54,7 +55,7 @@ export function Experience() {
           </li>
         ))}
       </ol>
-      <a className="button worklog-cta" href="/work/">
+      <a className="button worklog-cta" href={`${BASE}work/`}>
         See the full work log <span aria-hidden="true">→</span>
       </a>
 
