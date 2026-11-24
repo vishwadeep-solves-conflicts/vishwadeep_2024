@@ -54,6 +54,9 @@ export function Experience() {
           </li>
         ))}
       </ol>
+      <a className="button worklog-cta" href="/work/">
+        See the full work log <span aria-hidden="true">→</span>
+      </a>
 
       <div className="activity">
         <h3 className="activity-title">Commit activity</h3>
