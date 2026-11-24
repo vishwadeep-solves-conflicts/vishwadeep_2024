@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en" data-theme="midnight">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vishwadeep Kushwaha · apps and sites</title>
+<meta name="description" content="Everything Vishwadeep Kushwaha has built and put online: portfolio, Traffic Sandbox, Private Commit Heatmap, India City Livability Index and The Group Wants to Guess.">
+<meta name="theme-color" content="#0c0c0e">
+<link rel="icon" href="/portfolio/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<script>
+  // Same key as the portfolio, so a theme picked in either place carries over. Midnight is the default.
+  try { var t = localStorage.getItem("vk-theme"); if (t === "navy" || t === "white" || t === "midnight") document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<style>
+  [data-theme="midnight"] {
+    --bg: #0c0c0e; --surface: #141417; --surface-2: #1b1b20; --border: #26262c; --border-strong: #3a3a42;
+    --text: #f4f4f5; --muted: #a1a1aa; --faint: #71717a; --accent: #bef264; --on-accent: #0c0c0e;
+    --glow: rgba(190, 242, 100, .10); --grid: rgba(255, 255, 255, .035); --shot-bg: #101013; color-scheme: dark;
+  }
+  [data-theme="navy"] {
+    --bg: #061a33; --surface: #0b2545; --surface-2: #0f2d52; --border: #12335a; --border-strong: #2a5180;
+    --text: #e2ecf8; --muted: #a9bdd6; --faint: #7d97b8; --accent: #67e8f9; --on-accent: #061a33;
+    --glow: rgba(103, 232, 249, .12); --grid: rgba(255, 255, 255, .04); --shot-bg: #0a2240; color-scheme: dark;
+  }
+  [data-theme="white"] {
+    --bg: #ffffff; --surface: #f8fafc; --surface-2: #f1f5f9; --border: #e5e7eb; --border-strong: #cbd5e1;
+    --text: #111827; --muted: #4b5563; --faint: #6b7280; --accent: #3730a3; --on-accent: #ffffff;
+    --glow: rgba(55, 48, 163, .08); --grid: rgba(17, 24, 39, .045); --shot-bg: #eef2f7; color-scheme: light;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased; transition: background-color .3s, color .3s; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+  .mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+
+  /* top bar */
+  .bar { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    background: color-mix(in srgb, var(--bg) 82%, transparent); border-bottom: 1px solid var(--border); }
+  .bar .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 600 16px/1 "Space Grotesk", sans-serif; }
+  .brand b { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9px; background: var(--accent);
+    color: var(--on-accent); font: 700 14px/1 "Space Grotesk", sans-serif; }
+  .themes { display: flex; gap: 4px; padding: 4px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); }
+  .themes button { all: unset; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px;
+    font: 500 13px/1 Inter, sans-serif; color: var(--muted); }
+  .themes button:hover { color: var(--text); }
+  .themes button[aria-pressed="true"] { background: var(--surface-2); color: var(--text); box-shadow: inset 0 0 0 1px var(--border-strong); }
+  .themes i { width: 10px; height: 10px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(127,127,127,.5); }
+  @media (max-width: 520px) { .themes span { display: none; } .themes button { padding: 7px; } }
+
+  /* hero */
+  .hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
+  .hero::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 48px 48px; mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 40%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 40%, transparent 100%); }
+  .hero::after { content: ""; position: absolute; width: 720px; height: 420px; left: 50%; top: -220px; transform: translateX(-50%);
+    background: radial-gradient(closest-side, var(--glow), transparent); pointer-events: none; }
+  .hero .wrap { position: relative; z-index: 1; padding-top: 88px; padding-bottom: 72px; }
+  .status { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 10px; border: 1px solid var(--border);
+    border-radius: 999px; background: var(--surface); color: var(--muted); font-size: 13px; margin: 0 0 28px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--glow); }
+  h1 { font: 700 clamp(40px, 7vw, 76px)/1.02 "Space Grotesk", sans-serif; letter-spacing: -.035em; margin: 0 0 20px; max-width: 14ch; }
+  h1 em { font-style: normal; color: var(--accent); }
+  .lead { color: var(--muted); max-width: 58ch; margin: 0 0 36px; font-size: clamp(17px, 2vw, 19px); }
+  .facts { display: flex; flex-wrap: wrap; gap: 12px 36px; margin: 0; padding: 0; list-style: none; }
+  .facts li { display: flex; flex-direction: column; gap: 2px; }
+  .facts strong { font: 600 24px/1.1 "Space Grotesk", sans-serif; }
+  .facts span { color: var(--faint); font-size: 13px; }
+
+  /* sections */
+  section { padding: 64px 0 0; }
+  .head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
+  .head h2 { margin: 0; font: 600 13px/1 "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+  .head h2::before { content: "/ "; color: var(--accent); }
+  .head span { color: var(--faint); font-size: 14px; }
+
+  /* portfolio feature */
+  .feature { position: relative; display: grid; grid-template-columns: 1.1fr .9fr; gap: 0; overflow: hidden;
+    border: 1px solid var(--border); border-radius: 20px; background: var(--surface); text-decoration: none;
+    transition: border-color .2s, transform .2s; }
+  .feature:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+  .feature .copy { padding: 40px; display: flex; flex-direction: column; gap: 14px; }
+  .feature h3 { font: 700 clamp(26px, 3.4vw, 36px)/1.1 "Space Grotesk", sans-serif; letter-spacing: -.02em; margin: 0; }
+  .feature p { margin: 0; color: var(--muted); max-width: 46ch; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 0; padding: 0; list-style: none; }
+  .chips li { padding: 4px 10px; border: 1px solid var(--border); border-radius: 999px; font: 500 12px/1.4 "JetBrains Mono", monospace; color: var(--muted); }
+  .btn { align-self: flex-start; margin-top: 10px; display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 12px;
+    background: var(--accent); color: var(--on-accent); font-weight: 600; font-size: 15px; transition: gap .2s; }
+  .feature:hover .btn { gap: 12px; }
+  .term { margin: 24px 24px 24px 0; border: 1px solid var(--border); border-radius: 14px; background: var(--bg); overflow: hidden;
+    font: 500 13px/1.75 "JetBrains Mono", monospace; color: var(--muted); align-self: center; }
+  .term .top { display: flex; gap: 6px; padding: 12px 14px; border-bottom: 1px solid var(--border); }
+  .term .top i { width: 10px; height: 10px; border-radius: 50%; background: var(--border-strong); }
+  .term pre { margin: 0; padding: 16px 18px 20px; white-space: pre-wrap; font: inherit; }
+  .term .k { color: var(--accent); }
+  .term .c { color: var(--faint); }
+  @media (max-width: 820px) { .feature { grid-template-columns: 1fr; } .feature .copy { padding: 28px; } .term { margin: 0 20px 20px; } }
+
+  /* app cards */
+  .grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+  .card { position: relative; display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 18px;
+    background: var(--surface); overflow: hidden; transition: border-color .2s, transform .2s; }
+  .card:hover, .card:focus-within { border-color: var(--border-strong); transform: translateY(-3px); }
+  .shot { position: relative; aspect-ratio: 16 / 9.5; overflow: hidden; background: var(--shot-bg); border-bottom: 1px solid var(--border); }
+  .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform .5s ease; }
+  .card:hover .shot img { transform: scale(1.035); }
+  .num { position: absolute; top: 14px; left: 14px; padding: 4px 9px; border-radius: 8px; font: 500 12px/1.3 "JetBrains Mono", monospace;
+    background: color-mix(in srgb, var(--bg) 78%, transparent); color: var(--text); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    border: 1px solid var(--border); }
+  .body { padding: 22px 24px 22px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .tag { font: 500 12px/1.3 "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .05em; color: var(--accent); }
+  .card h3 { font: 600 22px/1.2 "Space Grotesk", sans-serif; letter-spacing: -.01em; margin: 0; }
+  .card h3 a { text-decoration: none; }
+  .card h3 a::after { content: ""; position: absolute; inset: 0; } /* whole card opens the app */
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+  .foot { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 14px; }
+  .open { font-weight: 600; font-size: 14px; color: var(--text); display: inline-flex; gap: 6px; transition: gap .2s; }
+  .card:hover .open { gap: 10px; color: var(--accent); }
+  .code { position: relative; z-index: 1; font: 500 13px/1 "JetBrains Mono", monospace; color: var(--faint); text-decoration: none;
+    padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; }
+  .code:hover { color: var(--text); border-color: var(--border-strong); }
+
+  footer { border-top: 1px solid var(--border); margin-top: 80px; padding: 28px 0 40px; color: var(--faint); font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+  footer nav { display: flex; gap: 20px; }
+  footer a { text-decoration: none; color: var(--muted); }
+  footer a:hover { color: var(--accent); }
+
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <div class="wrap">
+      <a class="brand" href="/"><b>VK</b>Vishwadeep Kushwaha</a>
+      <div class="themes" role="group" aria-label="Theme">
+        <button type="button" data-set="midnight"><i style="background:#0c0c0e"></i><span>Midnight</span></button>
+        <button type="button" data-set="navy"><i style="background:#061a33"></i><span>Navy</span></button>
+        <button type="button" data-set="white"><i style="background:#ffffff"></i><span>White</span></button>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <p class="status"><span class="dot"></span>All apps live · self-hosted</p>
+      <h1>Things I've <em>built</em> and shipped.</h1>
+      <p class="lead">I'm a senior software engineer in Bengaluru. This is my portfolio and every app I've put online, all in one place. The apps are open source and run entirely in your browser, so nothing you type leaves your device.</p>
+      <ul class="facts">
+        <li><strong>4</strong><span>open-source apps</span></li>
+        <li><strong>0</strong><span>trackers or sign-ups</span></li>
+        <li><strong>100%</strong><span>runs in your browser</span></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section aria-labelledby="h-portfolio">
+      <div class="head"><h2 id="h-portfolio">Portfolio</h2></div>
+      <a class="feature" href="/portfolio/">
+        <div class="copy">
+          <span class="tag">About me</span>
+          <h3>Experience, work log and skills</h3>
+          <p>Senior software engineer at SleekSky. What I've worked on, a detailed log of the work and the skills behind it.</p>
+          <ul class="chips"><li>React</li><li>TypeScript</li><li>Node.js</li><li>PostgreSQL</li></ul>
+          <span class="btn">Open portfolio <span aria-hidden="true">→</span></span>
+        </div>
+        <div class="term" aria-hidden="true">
+          <div class="top"><i></i><i></i><i></i></div>
+<pre><span class="c"># whoami</span>
+<span class="k">name</span>     Vishwadeep Kushwaha
+<span class="k">role</span>     Senior Software Engineer
+<span class="k">based</span>    Bengaluru, India
+<span class="k">builds</span>   web apps, dev tools, games
+<span class="k">status</span>   shipping ▍</pre>
+        </div>
+      </a>
+    </section>
+
+    <section aria-labelledby="h-apps">
+      <div class="head"><h2 id="h-apps">Apps</h2><span>Click a card to open it</span></div>
+      <!-- To add an app: copy one <li> below, bump its number, and add the repo to sites.conf. -->
+      <ul class="grid">
+        <li class="card">
+          <div class="shot"><img src="/traffic-sandbox/screenshot.png" alt="" loading="lazy" width="1280" height="800"><span class="num">01</span></div>
+          <div class="body">
+            <span class="tag">Simulation · Canvas</span>
+            <h3><a href="/traffic-sandbox/">Traffic Sandbox</a></h3>
+            <p>A traffic simulator. Draw roads, time signals, add flyovers or import a real OpenStreetMap area, then compare before and after.</p>
+            <div class="foot"><span class="open">Open app <span aria-hidden="true">→</span></span><a class="code" href="https://github.com/vishwadeep-solves-conflicts/traffic-sandbox" rel="noopener">Code</a></div>
+          </div>
+        </li>
+        <li class="card">
+          <div class="shot"><img src="/private-commit-heatmap/screenshot.png" alt="" loading="lazy" width="1280" height="800"><span class="num">02</span></div>
+          <div class="body">
+            <span class="tag">Dev tool · Python · Bash</span>
+            <h3><a href="/private-commit-heatmap/">Private Commit Heatmap</a></h3>
+            <p>Shows work from private repos as a GitHub-style heatmap. Only dates and counts leave your repos.</p>
+            <div class="foot"><span class="open">Open app <span aria-hidden="true">→</span></span><a class="code" href="https://github.com/vishwadeep-solves-conflicts/private-commit-heatmap" rel="noopener">Code</a></div>
+          </div>
+        </li>
+        <li class="card">
+          <div class="shot"><img src="/india-livability-index/screenshot.png" alt="" loading="lazy" width="1280" height="800"><span class="num">03</span></div>
+          <div class="body">
+            <span class="tag">Data · Interactive ranking</span>
+            <h3><a href="/india-livability-index/">India City Livability Index</a></h3>
+            <p>20 Indian cities rated on 17 factors and ranked for four kinds of people. Change the weights and watch the ranking move.</p>
+            <div class="foot"><span class="open">Open app <span aria-hidden="true">→</span></span><a class="code" href="https://github.com/vishwadeep-solves-conflicts/india-livability-index" rel="noopener">Code</a></div>
+          </div>
+        </li>
+        <li class="card">
+          <div class="shot"><img src="/group-wants-to-guess/screenshot.png" alt="" loading="lazy" width="1280" height="800"><span class="num">04</span></div>
+          <div class="body">
+            <span class="tag">Party game · Vanilla JS</span>
+            <h3><a href="/group-wants-to-guess/">The Group Wants to Guess</a></h3>
+            <p>A living-room quiz for a TV or projector: four rounds, a scoreboard, timers and sounds, with every question editable.</p>
+            <div class="foot"><span class="open">Open app <span aria-hidden="true">→</span></span><a class="code" href="https://github.com/vishwadeep-solves-conflicts/group-wants-to-guess" rel="noopener">Code</a></div>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© Vishwadeep Kushwaha</span>
+      <nav><a href="/portfolio/">Portfolio</a><a href="https://github.com/vishwadeep-solves-conflicts" rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/vish-kushwaha/" rel="noopener">LinkedIn</a></nav>
+    </div>
+  </footer>
+
+<script>
+  (function () {
+    var root = document.documentElement, buttons = document.querySelectorAll("[data-set]");
+    function mark() { buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.set === root.dataset.theme)); }); }
+    buttons.forEach(function (b) {
+      b.addEventListener("click", function () {
+        root.dataset.theme = b.dataset.set;
+        try { localStorage.setItem("vk-theme", b.dataset.set); } catch (e) {}
+        mark();
+      });
+    });
+    mark();
+  })();
+</script>
+</body>
+</html>

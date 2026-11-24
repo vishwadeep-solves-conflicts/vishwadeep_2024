@@ -2,6 +2,7 @@ import Header from "./components/Header";
 import { Footer } from "./components/Sections";
 import { ThemeProvider } from "./theme";
 import { worklog, worklogStats } from "./worklog";
+import { BASE } from "./paths";
 
 function WorkLogPage() {
   return (
@@ -64,7 +65,7 @@ function WorkLogPage() {
         ))}
 
         <div className="container worklog-back">
-          <a className="button" href="/">
+          <a className="button" href={BASE}>
             <span aria-hidden="true">←</span> Back to home
           </a>
         </div>

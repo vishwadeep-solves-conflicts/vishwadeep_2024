@@ -6,10 +6,11 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      // two pages: the home page and the work log at /work/
+      // three pages: the home page, the work log at /work/ and the apps hub at /apps/
       input: {
         main: 'index.html',
         work: 'work/index.html',
+        apps: 'apps/index.html',
       },
     },
   },

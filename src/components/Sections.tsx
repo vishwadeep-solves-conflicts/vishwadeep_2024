@@ -1,11 +1,12 @@
 import { highlights, jobs, profile, projects, sideProjects, skills, type Project } from "../data";
 import { useTheme, type ThemeKey } from "../theme";
 import CV from "../resume";
+import { BASE } from "../paths";
 
 const heatmapFor: Record<ThemeKey, string> = {
-  navy: "/commit-heatmap-site.svg",
-  white: "/commit-heatmap-light.svg",
-  midnight: "/commit-heatmap-dark.svg",
+  navy: `${BASE}commit-heatmap-site.svg`,
+  white: `${BASE}commit-heatmap-light.svg`,
+  midnight: `${BASE}commit-heatmap-dark.svg`,
 };
 
 export function Highlights() {
@@ -54,7 +55,7 @@ export function Experience() {
           </li>
         ))}
       </ol>
-      <a className="button worklog-cta" href="/work/">
+      <a className="button worklog-cta" href={`${BASE}work/`}>
         See the full work log <span aria-hidden="true">→</span>
       </a>
 
@@ -155,10 +156,12 @@ export function Footer() {
           <a href={`mailto:${profile.email}`}>{profile.email}</a>
         </div>
         <div className="button-row">
-          <a className="button button-primary" href={CV} target="_blank" rel="noopener">
-            Resume (PDF)
-          </a>
-          <a className="button" href={profile.linkedin} target="_blank" rel="noopener">
+          {CV && (
+            <a className="button button-primary" href={CV} target="_blank" rel="noopener">
+              Resume (PDF)
+            </a>
+          )}
+          <a className={CV ? "button" : "button button-primary"} href={profile.linkedin} target="_blank" rel="noopener">
             LinkedIn
           </a>
           <a className="button" href={profile.github} target="_blank" rel="noopener">

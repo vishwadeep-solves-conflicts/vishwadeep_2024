@@ -17,12 +17,12 @@ function readStoredTheme(): ThemeKey {
   } catch {
     // storage can be unavailable (private mode, blocked cookies)
   }
-  return "navy";
+  return "midnight";
 }
 
 type ThemeContextValue = { theme: ThemeKey; setTheme: (key: ThemeKey) => void };
 
-const ThemeContext = createContext<ThemeContextValue>({ theme: "navy", setTheme: () => undefined });
+const ThemeContext = createContext<ThemeContextValue>({ theme: "midnight", setTheme: () => undefined });
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<ThemeKey>(readStoredTheme);

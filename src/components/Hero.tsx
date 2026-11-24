@@ -18,10 +18,12 @@ export default function Hero() {
             queues, Postgres and integrations.
           </p>
           <div className="button-row">
-            <a className="button button-primary" href={CV} target="_blank" rel="noopener">
-              Download resume
-            </a>
-            <a className="button" href={profile.linkedin} target="_blank" rel="noopener">
+            {CV && (
+              <a className="button button-primary" href={CV} target="_blank" rel="noopener">
+                Download resume
+              </a>
+            )}
+            <a className={CV ? "button" : "button button-primary"} href={profile.linkedin} target="_blank" rel="noopener">
               LinkedIn
             </a>
             <a className="button" href={profile.github} target="_blank" rel="noopener">
