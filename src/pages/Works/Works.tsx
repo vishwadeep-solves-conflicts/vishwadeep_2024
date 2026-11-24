@@ -17,10 +17,10 @@ type NotFoundProps = PropsWithChildren<{ props?: any }>;
 const data = [
   {
     project_name: "Rubix",
-    desc: "A web app as a one stop solution to allow hospital to create and manage availibilites for schools and students all over US. It has capability to map different branches of hosptials, availibilites in different programs, different tier of schools and placements for students. I got involed in building it's architecture and apis from ground up.",
+    desc: "A web app as a one stop solution to allow hospitals to create and manage availabilities for schools and students all over the US. It can map different hospital branches, availabilities in different programs, different tiers of schools and student placements. I was involved in building its architecture and APIs from the ground up.",
     tech: ["NestJS", "Azure", "Keycloak", "Keyvault", "Azure Blob Storage"],
     github: null,
-    url: "https://rubix.dev.exxat.net/",
+    url: null,
     image: rubix,
   },
   {
@@ -28,7 +28,7 @@ const data = [
     desc: "A highly tailored JSON editor made for one of our clients to help them manage 10k+ json files and 1M+ lines of data.",
     tech: ["NestJS", "React", "Azure", "Keycloak", "Tailwind", "MUI"],
     github: null,
-    url: "https://config-app.dev.exxat.net/layout-summary",
+    url: null,
     image: jsonEditor,
   },
   {
@@ -51,7 +51,7 @@ const data = [
   },
   {
     project_name: "Target",
-    desc: "A small project where user can request goods transport services and track them. It included an driver-app to track driver, an admin panel to manage requests and send billing and a user app to track their goods",
+    desc: "A small project where user can request goods transport services and track them. It included a driver app to track drivers, an admin panel to manage requests and send bills, and a user app to track goods.",
     tech: [
       "NodeJS",
       "React",
@@ -69,7 +69,7 @@ const data = [
   },
   {
     project_name: "KhaoBao",
-    desc: "A food delivery application which allows customers to make order from restaurants in their neighborhood, pay for their order and track their order.",
+    desc: "A food delivery application that allows customers to order from restaurants in their neighborhood, pay for their order and track their order.",
     tech: ["NodeJS", "Android", "Firebase"],
     github: "https://github.com/vishwadeep-solves-conflicts/KhaoBao",
     url: null,
@@ -77,7 +77,7 @@ const data = [
   },
   {
     project_name: "India Commerce",
-    desc: "A personal endaveour to graph and plot all kinds of trade that India is/was invloved with different countries.",
+    desc: "A personal endeavour to graph and plot all kinds of trade that India is or was involved in with different countries.",
     tech: [
       "NodeJS",
       "React",
@@ -93,19 +93,9 @@ const data = [
   },
   {
     project_name: "Portfolio",
-    desc: "One of my first tries with animation and visualization and building a portfolio site.",
-    tech: [
-      "NestJS",
-      "React",
-      "Express",
-      "Azure",
-      "Keycloak",
-      "Azure Blob Storage",
-      "Stripe",
-      "MUI",
-      "Tailwind",
-    ],
-    github: "https://github.com/vishwadeep-solves-conflicts/portfolio",
+    desc: "This site: my playground for animation and visualization, built with React, TypeScript and GSAP.",
+    tech: ["React", "TypeScript", "Vite", "styled-components", "GSAP"],
+    github: "https://github.com/vishwadeep-solves-conflicts/vishwadeep_2024",
     url: null,
     image: portfolio,
   },

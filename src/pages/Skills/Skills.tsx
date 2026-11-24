@@ -23,12 +23,12 @@ const data = {
     "GraphQL",
   ],
   "Back-End": [
-    "NodeJS",
+    "Node.js",
     "NestJS",
     "Express",
-    "Postgres",
+    "PostgreSQL",
     "MongoDB",
-    "CosmosDB",
+    "Cosmos DB",
     "Keycloak",
     "Auth0",
     "Algolia",
@@ -46,10 +46,10 @@ const data = {
     "Azure DevOps",
     "Azure Blob Storage",
     "Docker",
-    "Kubernetics",
-    "Keyvault",
+    "Kubernetes",
+    "Azure Key Vault",
   ],
-  Data: ["Python", "Numpy", "Panda", "Excel", "Power BI"],
+  Data: ["Python", "NumPy", "Pandas", "Excel", "Power BI"],
 };
 
 function Skills({ props, ...rest }: SkillsProps) {
