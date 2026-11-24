@@ -56,6 +56,12 @@ function Experience({ props, ...rest }: NotFoundProps) {
   return (
     <ContentDiv {...rest} id="experience">
       <div className="sectionTitle">Experience</div>
+      <img
+        className="heatmap"
+        src="/commit-heatmap-site.svg"
+        alt="Commit heatmap: 2,333 commits across private client repositories, March 2024 to November 2026"
+        loading="lazy"
+      />
       <>
       {data.map((dataE: Experience, index: number)=>
         <ExperienceRow key={index} props={dataE}/>
@@ -67,6 +73,14 @@ function Experience({ props, ...rest }: NotFoundProps) {
 export default styled(Experience)`
   padding: 60px 42px;
   overflow: auto;
+
+  .heatmap {
+    display: block;
+    width: 100%;
+    max-width: 740px;
+    height: auto;
+    margin: 16px 0 8px;
+  }
 
   .sectionTitle{
     font-size: 18px;
