@@ -11,8 +11,12 @@ OWNER="${OWNER:-https://github.com/vishwadeep-solves-conflicts}"
 
 mkdir -p "$SRC" "$OUT"
 
-grep -vE '^\s*(#|$)' "$KIT/sites.conf" | while read -r repo path dir build; do
+failed=""
+while read -r repo path dir build; do
   echo "==> $repo -> /$path/"
+  set +e
+  (
+  set -e
   if [ -d "$SRC/$repo/.git" ]; then
     git -C "$SRC/$repo" fetch -q --depth 1 origin HEAD
     git -C "$SRC/$repo" reset -q --hard FETCH_HEAD
@@ -23,7 +27,7 @@ grep -vE '^\s*(#|$)' "$KIT/sites.conf" | while read -r repo path dir build; do
   rev="$(git -C "$SRC/$repo" rev-parse HEAD)"
   if [ "${FORCE:-0}" != 1 ] && [ -f "$OUT/$path/.rev" ] && [ "$(cat "$OUT/$path/.rev")" = "$rev" ]; then
     echo "    unchanged ($rev), skipped"
-    continue
+    exit 0
   fi
 
   stage="$(mktemp -d)"
@@ -35,7 +39,7 @@ grep -vE '^\s*(#|$)' "$KIT/sites.conf" | while read -r repo path dir build; do
       [ -f "$SRC/$repo/screenshot.png" ] && cp "$SRC/$repo/screenshot.png" "$stage/"
       ;;
     vite)
-      (cd "$SRC/$repo" && npm ci --no-audit --no-fund --silent && npm run build -- --base "/$path/")
+      (cd "$SRC/$repo" && npm ci --no-audit --no-fund && npm run build -- --base "/$path/")
       cp -a "$SRC/$repo/dist/." "$stage/"
       ;;
     *) echo "unknown build '$build' for $repo" >&2; exit 1 ;;
@@ -47,8 +51,16 @@ grep -vE '^\s*(#|$)' "$KIT/sites.conf" | while read -r repo path dir build; do
   [ -d "$OUT/$path" ] && mv "$OUT/$path" "$OUT/$path.old"
   mv "$stage" "$OUT/$path"
   rm -rf "$OUT/$path.old"
-done
+  ) </dev/null
+  rc=$?
+  set -e
+  if [ "$rc" != 0 ]; then
+    echo "!!! $repo failed, keeping whatever was live before" >&2
+    failed="$failed $repo"
+  fi
+done < <(grep -vE '^\s*(#|$)' "$KIT/sites.conf")
 
 echo "==> hub -> /"
 install -m 644 "$KIT/hub/index.html" "$OUT/index.html"
+if [ -n "$failed" ]; then echo "Done, but these failed:$failed" >&2; exit 1; fi
 echo "Done."
