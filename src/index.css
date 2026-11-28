@@ -51,7 +51,7 @@
   color-scheme: light;
 }
 
-:root,
+:root:not([data-theme]),
 [data-theme="midnight"] {
   --bg: #0c0c0e;
   --surface: #17171b;
@@ -322,6 +322,59 @@ img {
 .avatar-svg g,
 .avatar-svg path {
   transition: transform 140ms ease-out, opacity 80ms linear;
+}
+
+/* ---------- Avatar asleep (lamp off) ---------- */
+.avatar-svg .head {
+  transform-origin: 105px 135px;
+  transition: transform 900ms ease-in-out;
+}
+
+.avatar.is-asleep .eye {
+  transition-duration: 350ms;
+}
+
+.avatar.is-asleep .me {
+  transform-origin: 105px 180px;
+  animation: avatar-breathe 3.6s ease-in-out infinite;
+}
+
+.zzz text {
+  font: 26px "Nanum Pen Script", cursive;
+  fill: var(--text);
+  opacity: 0;
+}
+
+.zzz text:nth-child(2) {
+  font-size: 32px;
+}
+
+.zzz text:nth-child(3) {
+  font-size: 40px;
+}
+
+.avatar.is-asleep .zzz text {
+  animation: avatar-zzz 3s ease-in-out infinite;
+}
+
+.avatar.is-asleep .zzz text:nth-child(2) {
+  animation-delay: 0.6s;
+}
+
+.avatar.is-asleep .zzz text:nth-child(3) {
+  animation-delay: 1.2s;
+}
+
+@keyframes avatar-breathe {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.012, 1.025); }
+}
+
+@keyframes avatar-zzz {
+  0% { opacity: 0; transform: translate(0, 6px); }
+  30% { opacity: 0.85; }
+  80% { opacity: 0; transform: translate(6px, -10px); }
+  100% { opacity: 0; transform: translate(6px, -10px); }
 }
 
 .eyebrow {
@@ -997,6 +1050,15 @@ img {
   *::before,
   *::after {
     transition-duration: 0.01ms !important;
+  }
+
+  .avatar.is-asleep .me,
+  .avatar.is-asleep .zzz text {
+    animation: none;
+  }
+
+  .avatar.is-asleep .zzz text {
+    opacity: 0.8;
   }
 }
 

@@ -6,7 +6,7 @@ const MAX_PULL = 70;
 
 // The desk lamp lighting up a small dashboard. The lamp flickers on at load;
 // the pull cord stretches when dragged, springs back, swings, and toggles the light.
-export default function LampDesk() {
+export default function LampDesk({ onLightChange }: { onLightChange?: (on: boolean) => void }) {
   const reduced = usePrefersReducedMotion();
   const [lampOn, setLampOn] = useState(reduced);
   const [pull, setPull] = useState(0);
@@ -32,6 +32,10 @@ export default function LampDesk() {
     }
     return () => pending.forEach((id) => window.clearTimeout(id));
   }, [reduced]);
+
+  useEffect(() => {
+    onLightChange?.(lampOn);
+  }, [lampOn, onLightChange]);
 
   const swingCord = (strength: number) => {
     if (reduced) return;

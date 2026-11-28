@@ -1,14 +1,16 @@
+import { useState } from "react";
 import Avatar from "./Avatar";
 import LampDesk from "./LampDesk";
 import CV from "../resume";
 import { profile } from "../data";
 
 export default function Hero() {
+  const [lightsOn, setLightsOn] = useState(true);
   return (
     <section className="hero" aria-labelledby="hero-name">
       <div className="container hero-inner">
         <div className="hero-intro">
-          <Avatar />
+          <Avatar asleep={!lightsOn} />
           <p className="eyebrow">Hi there, I'm</p>
           <h1 id="hero-name" className="hero-name">
             {profile.name}
@@ -32,7 +34,7 @@ export default function Hero() {
           </div>
           <p className="hero-hint">Move your cursor around. Shake it fast if you're feeling mean.</p>
         </div>
-        <LampDesk />
+        <LampDesk onLightChange={setLightsOn} />
       </div>
     </section>
   );

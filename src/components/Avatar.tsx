@@ -3,13 +3,25 @@ import { usePrefersReducedMotion } from "../theme";
 
 // Illustrated portrait whose eyes and face follow the pointer.
 // Blinks every few seconds; a very fast shake makes it dizzy.
-export default function Avatar() {
+// When the lamp goes out it nods off and sleeps until the light comes back.
+export default function Avatar({ asleep = false }: { asleep?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = usePrefersReducedMotion();
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [blink, setBlink] = useState(false);
   const [dizzy, setDizzy] = useState(false);
   const dizzyRef = useRef(false);
+  const [sleeping, setSleeping] = useState(false);
+
+  // Wait a moment before nodding off, so the lamp's start-up flicker doesn't wake it up and down.
+  useEffect(() => {
+    if (!asleep) {
+      setSleeping(false);
+      return;
+    }
+    const id = window.setTimeout(() => setSleeping(true), 600);
+    return () => window.clearTimeout(id);
+  }, [asleep]);
 
   useEffect(() => {
     if (reduced) return;
@@ -59,16 +71,19 @@ export default function Avatar() {
     };
   }, [reduced]);
 
+  // Asleep, the face stops following the pointer and droops a little.
+  const look = sleeping ? { x: 0, y: 0.3 } : pos;
+  const isDizzy = dizzy && !sleeping;
   const move = (fx: number, fy: number) =>
-    `translate(${(pos.x * fx).toFixed(2)}px, ${(pos.y * fy).toFixed(2)}px)`;
-  const open = blink || dizzy ? 0 : 1;
-  const shut = blink && !dizzy ? 1 : 0;
+    `translate(${(look.x * fx).toFixed(2)}px, ${(look.y * fy).toFixed(2)}px)`;
+  const open = sleeping || blink || isDizzy ? 0 : 1;
+  const shut = sleeping || (blink && !isDizzy) ? 1 : 0;
 
   return (
-    <div className="avatar" ref={ref}>
+    <div className={`avatar${sleeping ? " is-asleep" : ""}`} ref={ref}>
     <svg
             role="img"
-            aria-label="Illustrated portrait of Vishwadeep"
+            aria-label={sleeping ? "Illustrated portrait of Vishwadeep, asleep" : "Illustrated portrait of Vishwadeep"}
             className="avatar-svg"
             viewBox="0 10 211.73 180"
             strokeLinecap="round"
@@ -156,7 +171,7 @@ export default function Avatar() {
                   fill="#000"
                   opacity="0.09"
                 />
-                <g className="head">
+                <g className="head" style={{ transform: sleeping ? "rotate(-8deg) translateY(3px)" : "none" }}>
                   <g className="ear-left ear">
                 
                     <path
@@ -208,7 +223,7 @@ export default function Avatar() {
                       />
                       <path
                         className="mouth"
-                      style={{ opacity: dizzy ? 0 : 1 }}
+                      style={{ opacity: isDizzy ? 0 : 1 }}
                         d="M97 107.52s7.06 4.62 14 1.59"
                         fill="none"
                         stroke="#DBE8E4"
@@ -216,12 +231,12 @@ export default function Avatar() {
                       />
                       <path
                         className="oh"
-                      style={{ opacity: dizzy ? 0.85 : 0 }}
+                      style={{ opacity: isDizzy ? 0.85 : 0 }}
                         d="M105.56,117.06c4-.14,5-2.89,4.7-5.64s-1.88-6.7-4.84-6.62-4.73,4.36-4.9,6.72S101.57,117.19,105.56,117.06Z"
                         fill="#262528"
                       />
                       <g className="eyes"
-                      style={{ transform: move(7, 5), opacity: dizzy ? 0 : 1 }}>
+                      style={{ transform: move(7, 5), opacity: isDizzy ? 0 : 1 }}>
                         <path
                           className="eye-left eye"
                       style={{ opacity: open }}
@@ -253,7 +268,7 @@ export default function Avatar() {
                       </g>
                       <path
                         className="dizzy dizzy-1"
-                      style={{ opacity: dizzy ? 0.45 : 0 }}
+                      style={{ opacity: isDizzy ? 0.45 : 0 }}
                         d="M113.61,87.6c.54-2.66,2.66-3.84,4.63-3.37A3.3,3.3,0,0,1,117,90.71a2.53,2.53,0,0,1-2-3,2.48,2.48,0,0,1,2.73-1.92A1.71,1.71,0,0,1,119.32,88a1.59,1.59,0,0,1-1.75,1.34c-.79-.1-1.41-.59-1-1.42s1-.72,1.22-.24"
                         fill="none"
                         stroke="#000"
@@ -261,7 +276,7 @@ export default function Avatar() {
                       />
                       <path
                         className="dizzy dizzy-2"
-                      style={{ opacity: dizzy ? 0.45 : 0 }}
+                      style={{ opacity: isDizzy ? 0.45 : 0 }}
                         d="M96.15,87.27c-.54-2.66-2.66-3.84-4.63-3.37s-2.89,1.9-2.46,4a3.11,3.11,0,0,0,3.68,2.45,2.53,2.53,0,0,0,2-3A2.49,2.49,0,0,0,92,85.49a1.71,1.71,0,0,0-1.57,2.13A1.57,1.57,0,0,0,92.19,89c.79-.11,1.41-.6,1-1.43s-1-.72-1.22-.23"
                         fill="none"
                         stroke="#000"
@@ -290,6 +305,11 @@ export default function Avatar() {
                   </g>
                 </g>
               </g>
+            </g>
+            <g className="zzz" aria-hidden="true">
+              <text x="150" y="66">z</text>
+              <text x="162" y="52">z</text>
+              <text x="176" y="36">Z</text>
             </g>
           </svg>
     </div>
